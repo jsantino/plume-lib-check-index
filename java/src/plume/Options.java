@@ -940,7 +940,7 @@ public class Options {
    * @throws ArgException if the command line contains misused options or an unknown option.
    * @see #parse(String[])
    */
-  @SuppressWarnings("index")    // issue #16
+  @SuppressWarnings("index") // issue #16
   public String[] parse(String args) throws ArgException {
 
     // Split the args string on whitespace boundaries accounting for quoted

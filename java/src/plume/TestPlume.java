@@ -1357,19 +1357,19 @@ public final class TestPlume {
 
     class TestNonModulus {
       // javadoc won't let this be static
-      void check_strict(int /*@MinLen(1)*/ [] nums, int /*@Nullable*/ [] goal_rm) {
+      void check_strict(int /*@MinLen(1)*/[] nums, int /*@Nullable*/ [] goal_rm) {
         check(nums, goal_rm, true);
         Iterator<Integer> itor = int_array_iterator(nums);
         assert_arrays_equals(MathMDE.nonmodulus_strict_int(itor), goal_rm);
       }
 
       // javadoc won't let this be static
-      void check_nonstrict(int /*@MinLen(1)*/ [] nums, int /*@Nullable*/ [] goal_rm) {
+      void check_nonstrict(int /*@MinLen(1)*/[] nums, int /*@Nullable*/ [] goal_rm) {
         check(nums, goal_rm, false);
       }
 
       // javadoc won't let this be static
-      void check(int /*@MinLen(1)*/ [] nums, int /*@Nullable*/ [] goal_rm, boolean strict) {
+      void check(int /*@MinLen(1)*/[] nums, int /*@Nullable*/ [] goal_rm, boolean strict) {
         int[] rm;
         if (strict) {
           rm = MathMDE.nonmodulus_strict(nums);
@@ -1580,7 +1580,8 @@ public final class TestPlume {
 
   /** Throws an assertion unless the paired iterator contains the same values as the argument array. */
   @SuppressWarnings("index") // size of opi = ints.length
-  public static void compareOrderedPairIterator(OrderedPairIterator<Integer> opi, int[] /*@MinLen(2)*/ [] ints) {
+  public static void compareOrderedPairIterator(
+      OrderedPairIterator<Integer> opi, int[] /*@MinLen(2)*/[] ints) {
     int pairno = 0;
     while (opi.hasNext()) {
       Pair</*@Nullable*/ Integer, /*@Nullable*/ Integer> pair = opi.next();
@@ -1606,7 +1607,7 @@ public final class TestPlume {
     /**
      * @param args  two-element array containing:  how many to print; how many milliseconds between each
      */
-    public static void main(String /*@MinLen(2)*/ [] args) {
+    public static void main(String /*@MinLen(2)*/[] args) {
       assert args.length == 2;
       int limit = Integer.parseInt(args[0]);
       int period = Integer.parseInt(args[1]);
@@ -2990,7 +2991,7 @@ public final class TestPlume {
    * Test command line option parsing (Options).
    * @throws ArgException if there is an illegal argument
    */
-  @SuppressWarnings("index")    // application-specific properties
+  @SuppressWarnings("index") // application-specific properties
   @Test
   public void testOptions() throws ArgException {
 
