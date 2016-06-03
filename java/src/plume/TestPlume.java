@@ -1579,6 +1579,7 @@ public final class TestPlume {
   }
 
   /** Throws an assertion unless the paired iterator contains the same values as the argument array. */
+  @SuppressWarnings("index") // size of opi = ints.length
   public static void compareOrderedPairIterator(OrderedPairIterator<Integer> opi, int[] /*@MinLen(2)*/ [] ints) {
     int pairno = 0;
     while (opi.hasNext()) {
@@ -3288,7 +3289,7 @@ public final class TestPlume {
     String[] sa = UtilMDE.splitLines(str);
     // for (String s : sa)
     //   System.out.printf ("'%s'%n", s);
-    assert sa.length == 11;
+    assert sa.length == 11 : "@AssumeAssertion(index)";
     assert sa[0].equals("one");
     assert sa[1].equals("two");
     assert sa[2].equals("three");
