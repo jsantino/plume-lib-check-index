@@ -2573,7 +2573,7 @@ public final class UtilMDE {
    * @param delimiter string to remove whitespace before
    * @return version of arg, with whitespace before delimiter removed
    */
-  @SuppressWarnings("index")    // issue #17
+  @SuppressWarnings("index") // issue #17
   public static String removeWhitespaceBefore(String arg, String delimiter) {
     // System.out.println("removeWhitespaceBefore(\"" + arg + "\", \"" + delimiter + "\")");
     // String orig = arg;

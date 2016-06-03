@@ -1580,7 +1580,8 @@ public final class TestPlume {
 
   /** Throws an assertion unless the paired iterator contains the same values as the argument array. */
   @SuppressWarnings("index") // size of opi = ints.length
-  public static void compareOrderedPairIterator(OrderedPairIterator<Integer> opi, int[] /*@MinLen(2)*/ [] ints) {
+  public static void compareOrderedPairIterator(
+      OrderedPairIterator<Integer> opi, int[] /*@MinLen(2)*/[] ints) {
     int pairno = 0;
     while (opi.hasNext()) {
       Pair</*@Nullable*/ Integer, /*@Nullable*/ Integer> pair = opi.next();
@@ -1606,7 +1607,7 @@ public final class TestPlume {
     /**
      * @param args  two-element array containing:  how many to print; how many milliseconds between each
      */
-    public static void main(String /*@MinLen(2)*/ [] args) {
+    public static void main(String /*@MinLen(2)*/[] args) {
       assert args.length == 2;
       int limit = Integer.parseInt(args[0]);
       int period = Integer.parseInt(args[1]);
@@ -2988,7 +2989,7 @@ public final class TestPlume {
    * Test command line option parsing (Options).
    * @throws ArgException if there is an illegal argument
    */
-  @SuppressWarnings("index")    // application-specific properties
+  @SuppressWarnings("index") // application-specific properties
   @Test
   public void testOptions() throws ArgException {
 
