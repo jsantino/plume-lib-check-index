@@ -1357,7 +1357,7 @@ public final class TestPlume {
 
     class TestNonModulus {
       // javadoc won't let this be static
-      void check_strict(int /*@MinLen(1)*/[] nums, int /*@Nullable*/ [] goal_rm) {
+      void check_strict(int /*@MinLen(1)*/ [] nums, int /*@Nullable*/ [] goal_rm) {
         check(nums, goal_rm, true);
         Iterator<Integer> itor = int_array_iterator(nums);
         assert_arrays_equals(MathMDE.nonmodulus_strict_int(itor), goal_rm);
