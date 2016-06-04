@@ -2089,7 +2089,10 @@ public final class TestPlume {
               nextNotification.add(Calendar.MINUTE, 1);
             }
           }
-          List<Integer> chosen = UtilMDE.randomElements(new IotaIterator(itor_size), i, r);
+          @SuppressWarnings("index") // Every element of chosen is in [0..itor_size)
+          // More generally, if the argument to IotaIterator is @IndexFor("a"), so is every output.
+          List</*@IndexFor("totals")*/ Integer> chosen =
+              UtilMDE.randomElements(new IotaIterator(itor_size), i, r);
           for (int m = 0; m < chosen.size(); m++) {
             for (int n = m + 1; n < chosen.size(); n++) {
               if (chosen.get(m).intValue() == chosen.get(n).intValue()) {
@@ -2098,7 +2101,9 @@ public final class TestPlume {
             }
           }
           for (int k = 0; k < chosen.size(); k++) {
-            totals[chosen.get(k).intValue()]++;
+            @SuppressWarnings("index") // Integer-to-int conversion
+            /*@IndexFor("totals")*/ int idx = chosen.get(k).intValue();
+            totals[idx]++;
           }
         }
         int i_truncated = Math.min(itor_size, i);
@@ -2727,16 +2732,7 @@ public final class TestPlume {
 
       for (int j = 0; j < 10; j++) {
 
-        //start two arrays out exactly equal
-        for (int i = 0; i < f1.length; i++) {
-          f1[i] = j + i * 10;
-          f2[i] = j + i * 10;
-        }
-
-        //fill out the second half of f2 with dup of f1
-        for (int i = 10; i < f2.length; i++) {
-          f2[i] = j + (i - 10) * 10;
-        }
+        initialize_f1_and_f2(j, f1, f2);
 
         //make two elements off just a little
         f2[7] = f2[7] * (1 + offset);
@@ -2751,16 +2747,7 @@ public final class TestPlume {
       }
       for (int j = 0; j < 200; j++) {
 
-        //start two arrays out exactly equal
-        for (int i = 0; i < f1.length; i++) {
-          f1[i] = j + i * 10;
-          f2[i] = j + i * 10;
-        }
-
-        //fill out the second half of f2 with dup of f1
-        for (int i = 10; i < f2.length; i++) {
-          f2[i] = j + (i - 10) * 10;
-        }
+        initialize_f1_and_f2(j, f1, f2);
 
         //make two elements off just a little
         f2[7] = f2[7] * (1 + 2 * offset);
@@ -2856,7 +2843,9 @@ public final class TestPlume {
 
         //fill up f1 with elements of f2
         for (int j = 0; j < f1.length; j++) {
-          f1[j] = f2[i + j];
+          @SuppressWarnings("index") // arithmetic
+          /*@IndexFor("f2")*/ int i2 = i + j;
+          f1[j] = f2[i2];
         }
 
         f1[5] = f2[i] * offhigh;
@@ -2883,6 +2872,22 @@ public final class TestPlume {
       assert ff.isSubset(a4, a1);
       assert ff.isSubset(a6, a1);
       assert !ff.isSubset(a1, a6);
+    }
+  }
+
+  /** Initialize f2 to be the same as two copies of f1 */
+  @SuppressWarnings("index") // length of f1 is exactly 10, length of f2 is exactly 20
+  void initialize_f1_and_f2(int j, double /*@MinLen(10)*/[] f1, double /*@MinLen(20)*/[] f2) {
+
+    //start two arrays out exactly equal
+    for (int i = 0; i < f1.length; i++) {
+      f1[i] = j + i * 10;
+      f2[i] = j + i * 10;
+    }
+
+    //fill out the second half of f2 with dup of f1
+    for (int i = 10; i < f2.length; i++) {
+      f2[i] = j + (i - 10) * 10;
     }
   }
 

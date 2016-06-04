@@ -19,7 +19,8 @@ The correct way to build the system is to run 'make'.
   @SuppressWarnings("index") // safe because it's a copy
   public static INT[] missing_numbers(INT /*@MinLen(1)*/ [] nums) {
     { // avoid modifying parameter
-      INT[] nums_copy = new INT[nums.length];
+      @SuppressWarnings("index") // issue #21
+      INT /*@MinLen(1)*/ [] nums_copy = new INT[nums.length];
       System.arraycopy(nums, 0, nums_copy, 0, nums.length);
       nums = nums_copy;
     }
@@ -61,6 +62,7 @@ The correct way to build the system is to run 'make'.
    * returned; otherwise, all returned values are between the minimum and
    * maximum of the original values.
    */
+  @SuppressWarnings("index") // treatment of current_index is complex
   static final class MissingNumbersIteratorINT implements Iterator<INTEGER> {
     // Exactly one of nums and nums_itor is non-null.
     INT /*@MonotonicNonNull*/ [] nums;
@@ -77,10 +79,12 @@ The correct way to build the system is to run 'make'.
      * @param nums a non-empty array
      * @param add_ends if true, include the bracketing endpoints
      */
+    @SuppressWarnings("index") // bug? 0 is an index for nums
     MissingNumbersIteratorINT(INT /*@MinLen(1)*/ [] nums, boolean add_ends) {
       this.add_ends = add_ends;
       { // avoid modifying parameter
-        INT[] nums_copy = new INT[nums.length];
+        @SuppressWarnings("index") // issue #21
+        INT /*@MinLen(1)*/ [] nums_copy = new INT[nums.length];
         System.arraycopy(nums, 0, nums_copy, 0, nums.length);
         nums = nums_copy;
       }
